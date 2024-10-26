@@ -24,7 +24,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public PostDto publish(@PathVariable long id) throws JsonProcessingException {
+    public PostDto publish(@PathVariable long id) {
         return service.publishPost(id);
     }
 

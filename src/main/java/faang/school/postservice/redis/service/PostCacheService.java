@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class PostCacheService {
 
-    @Value("{spring.data.redis.post-cache.key-prefix}")
+    @Value("${spring.data.redis.post-cache.key-pref}")
     private String postCacheKeyPrefix;
-    @Value("{spring.data.redis.post-cache.likes}")
+    @Value("${spring.data.redis.post-cache.likes}")
     private String cacheLikesField;
-    @Value("{spring.data.redis.post-cache.views}")
+    @Value("${spring.data.redis.post-cache.views}")
     private String cacheViewField;
 
     private final RedisTemplate<String, Object> redisTemplate;

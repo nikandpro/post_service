@@ -43,36 +43,36 @@ class ScheduledExpiredAdRemoverTest {
         ad2.setEndDate(LocalDateTime.of(2024, Month.OCTOBER, 11, 12, 12));
         ad3.setAppearancesLeft(1L);
         ad3.setEndDate(LocalDateTime.now().minusDays(1L));
-        ad4.setAppearancesLeft(0L);
-        ad4.setEndDate(LocalDateTime.now().minusDays(1L));
+        ad4.setAppearancesLeft(1L);
+        ad4.setEndDate(LocalDateTime.now().plusHours(1L));
         ReflectionTestUtils.setField(scheduledExpiredAdRemover, "subListSize", 100);
 
     }
 
     // TODO: исправить
-//    @Test
-//    void shouldReturnAmountOfInvokesWhenDeleteExpiredAdsTest() {
-//        //arrange
-//        ads = List.of(ad1, ad2, ad3, ad4);
-//
-//        //act
-//        when(adRepository.findAll()).thenReturn(ads);
-//        scheduledExpiredAdRemover.scheduledDeleteExpiredAds();
-//
-//        //assert
-//        verify(adRepository, times(3)).deleteById(anyLong());
-//    }
+    @Test
+    void shouldReturnAmountOfInvokesWhenDeleteExpiredAdsTest() {
+        //arrange
+        ads = List.of(ad1, ad2, ad3, ad4);
 
-//    @Test
-//    void shouldReturnNullAmountOfInvokesWhenDeleteExpiredAdsTest() {
-//        //arrange
-//        ads = List.of(ad1);
-//
-//        //act
-//        when(adRepository.findAll()).thenReturn(ads);
-//        scheduledExpiredAdRemover.scheduledDeleteExpiredAds();
-//
-//        //assert
-//        verify(adRepository, never()).deleteById(anyLong());
-//    }
+        //act
+        when(adRepository.findAll()).thenReturn(ads);
+        scheduledExpiredAdRemover.scheduledDeleteExpiredAds();
+
+        //assert
+        verify(adRepository, times(3)).deleteById(anyLong());
+    }
+
+    @Test
+    void shouldReturnNullAmountOfInvokesWhenDeleteExpiredAdsTest() {
+        //arrange
+        ads = List.of(ad4);
+
+        //act
+        when(adRepository.findAll()).thenReturn(ads);
+        scheduledExpiredAdRemover.scheduledDeleteExpiredAds();
+
+        //assert
+        verify(adRepository, never()).deleteById(anyLong());
+    }
 }
