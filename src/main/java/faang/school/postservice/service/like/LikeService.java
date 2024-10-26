@@ -47,9 +47,6 @@ public class LikeService {
     @Value("${like-service.batch-size}")
     private int batchSize;
 
-    @Value("${spring.data.kafka.topics.like_topic}")
-    private String likeTopic;
-
     @Transactional
     public void deleteCommentLike(LikeDto likeDto) {
         Long userId = likeDto.getUserId();

@@ -11,7 +11,8 @@ import java.util.List;
 @RedisHash(value = "feed", timeToLive = 86400)
 @AllArgsConstructor
 public class Feed {
+
     @Id
-    private Long userId;
+    private Long id;
     private List<PostCache> posts;
 }

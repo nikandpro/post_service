@@ -16,7 +16,7 @@ public class FeedMapper {
 
     public FeedDto toDto(Feed feed) {
         List<PostDto> postDtos = postCacheMapper.toDto(feed.getPosts());
-        return new FeedDto(feed.getUserId(), postDtos);
+        return new FeedDto(feed.getId(), postDtos);
     }
 
 }

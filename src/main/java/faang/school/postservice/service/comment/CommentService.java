@@ -24,7 +24,7 @@ public class CommentService {
     private final CommentMapper mapper;
     private final KafkaEventProducer kafkaEventProducer;
 
-    @Value("${spring.data.kafka.topics.comment_topic}")
+    @Value("${spring.data.kafka.topic-name.comments}")
     private String commentTopic;
 
     public CommentDto addComment(Long postId, CommentDto commentDto) {

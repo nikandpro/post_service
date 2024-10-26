@@ -17,7 +17,7 @@ public class KafkaEventConsumer {
 
     private final PostCacheService postCacheService;
 
-    @KafkaListener(topics = "${spring.data.kafka.topic-name.likes}")
+    @KafkaListener(topics = "${spring.data.kafka.topic-name.likes}", groupId = "1")
     public void listener(LikeEvent likeEvent, Acknowledgment ack) {
         log.info("Received message like [{}]", likeEvent);
         postCacheService.incrementLikes(likeEvent.postId());
@@ -25,7 +25,7 @@ public class KafkaEventConsumer {
         log.info("Successfully received like");
     }
 
-    @KafkaListener(topics = "${spring.data.kafka.topic-name.views}")
+    @KafkaListener(topics = "${spring.data.kafka.topic-name.views}", groupId = "1")
     public void listener(ViewEvent viewEvent, Acknowledgment ack) {
         log.info("Received message view [{}]", viewEvent);
         postCacheService.incrementView(viewEvent.postId());
@@ -33,7 +33,7 @@ public class KafkaEventConsumer {
         log.info("Successfully received view");
     }
 
-    @KafkaListener(topics = "${spring.data.kafka.topic-name.comments}")
+    @KafkaListener(topics = "${spring.data.kafka.topic-name.comments}", groupId = "1")
     public void listener(CommentEvent commentEvent) {
         log.info("Received message [{}]", commentEvent);
         postCacheService.addComments(commentEvent);

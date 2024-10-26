@@ -2,10 +2,11 @@ package faang.school.postservice.redis.service;
 
 import faang.school.postservice.dto.post.PostDto;
 import faang.school.postservice.kafka.model.CommentEvent;
+import faang.school.postservice.model.Post;
 import faang.school.postservice.redis.mapper.PostCacheMapper;
 import faang.school.postservice.redis.model.PostCache;
 import faang.school.postservice.redis.repository.PostCacheRepository;
-import faang.school.postservice.service.post.PostService;
+import faang.school.postservice.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -25,13 +26,13 @@ public class PostCacheService {
 
     private final RedisTemplate<String, Object> redisTemplate;
     private final PostCacheRepository postCacheRepository;
-    private final PostService postService;
+    private final PostRepository postRepository;
     private final PostCacheMapper postCacheMapper;
 
-    public PostCacheService(RedisTemplate<String, Object> redisTemplate, PostCacheRepository postCacheRepository, PostService postService, PostCacheMapper postCacheMapper) {
+    public PostCacheService(RedisTemplate<String, Object> redisTemplate, PostCacheRepository postCacheRepository, PostRepository postRepository, PostCacheMapper postCacheMapper) {
         this.redisTemplate = redisTemplate;
         this.postCacheRepository = postCacheRepository;
-        this.postService = postService;
+        this.postRepository = postRepository;
         this.postCacheMapper = postCacheMapper;
     }
 
@@ -73,10 +74,14 @@ public class PostCacheService {
     }
 
     public PostCache savePostCache(Long postId) {
-        var postDto = postService.getPost(postId);
-        var postCache = postCacheMapper.toPostCache(postDto);
+        var postCache = postCacheMapper.fromEntitytoPostCache(getPost(postId));
         postCacheRepository.save(postCache);
         return postCache;
     }
+
+    private Post getPost(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
+    }
+
 
 }

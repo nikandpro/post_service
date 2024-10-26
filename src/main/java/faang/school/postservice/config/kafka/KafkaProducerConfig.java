@@ -30,6 +30,7 @@ public class KafkaProducerConfig {
     private String commentTopic;
 
     @Value("${spring.data.kafka.topic-name.views}")
+    private String viewsTopic;
 
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
@@ -63,6 +64,6 @@ public class KafkaProducerConfig {
 
     @Bean
     public NewTopic viewKafkaTopic() {
-        return new NewTopic(commentTopic, 1, (short) 1);
+        return new NewTopic(viewsTopic, 1, (short) 1);
     }
 }

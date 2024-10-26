@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class KafkaEventProducer {
 
-    @Value("${spring.data.kafka.topics.like_topic}")
+    @Value("${spring.data.kafka.topic-name.likes}")
     private String likeTopic;
-    @Value("${spring.data.kafka.topics.comment_topic}")
+    @Value("${spring.data.kafka.topic-name.comments}")
     private String commentTopic;
     @Value("${spring.data.kafka.topic-name.views}")
     private String viewTopic;
