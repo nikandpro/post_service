@@ -17,8 +17,7 @@ import java.util.Map;
 @Configuration
 public class KafkaProducerConfig {
 
-    @Value("${spring.data.kafka.bootstrap-servers}")
-    public String bootstrapAddress;
+    public String bootstrapAddress = "localhost:9092";
 
     @Value("${spring.data.kafka.topic-name.posts}")
     private String postTopic;

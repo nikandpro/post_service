@@ -3,6 +3,7 @@ package faang.school.postservice.config.kafka;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -15,10 +16,10 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
+@ConfigurationProperties(prefix = "kafkaconsumerconfig")
 public class KafkaConsumerConfig {
 
-    @Value("${spring.data.kafka.bootstrap-servers}")
-    public String bootstrapAddress;
+    public String bootstrapAddress = "localhost:9092";
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
