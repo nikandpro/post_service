@@ -29,7 +29,7 @@ spring:
          like_post_channel: like_channel
          comment_channel: comment_channel
     kafka:
-
+      bootstrap: localhost:9092
       topic-name:
         posts: posts
         likes: likes
@@ -59,6 +59,7 @@ payment-service:
   port: 9080
 
 sizeof-sublist: 100
+
 
 like-service:
   batch-size: 100
