@@ -9,7 +9,6 @@ import faang.school.postservice.repository.CommentRepository;
 import faang.school.postservice.repository.PostRepository;
 import faang.school.postservice.service.comment.error.CommentServiceErrors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,11 +23,9 @@ public class CommentService {
     private final CommentMapper mapper;
     private final KafkaEventProducer kafkaEventProducer;
 
-    @Value("${spring.data.kafka.topic-name.comments}")
-    private String commentTopic;
 
     public CommentDto addComment(Long postId, CommentDto commentDto) {
-        validateComment(postId, commentDto);
+        validateComment(commentDto);
 
         Comment comment = mapper.toEntity(commentDto);
         Post post = getValidPost(postId);
@@ -42,7 +39,7 @@ public class CommentService {
         return mapper.toDto(comment);
     }
 
-    public void validateComment(Long postId, CommentDto commentDto) {
+    public void validateComment(CommentDto commentDto) {
         if (commentDto.getContent() == null || commentDto.getContent().isBlank()) {
             throw new IllegalArgumentException(CommentServiceErrors.COMMENT_IS_EMPTY.getValue());
         }
