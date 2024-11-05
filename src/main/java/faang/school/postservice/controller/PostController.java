@@ -1,6 +1,5 @@
 package faang.school.postservice.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import faang.school.postservice.dto.post.PostDto;
 import faang.school.postservice.service.post.PostService;
 import jakarta.validation.Valid;

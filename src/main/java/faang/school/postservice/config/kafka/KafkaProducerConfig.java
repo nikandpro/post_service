@@ -18,22 +18,24 @@ import java.util.Map;
 public class KafkaProducerConfig {
 
     private final String bootstrapAddress;
+    private final String postTopic;
+    private final String likeTopic;
+    private final String commentTopic;
+    private final String viewsTopic;
 
-    public KafkaProducerConfig(@Value("${spring.data.kafka.bootstrap}")String bootstrapAddress) {
+
+    public KafkaProducerConfig(@Value("${spring.data.kafka.bootstrap}") String bootstrapAddress,
+                               @Value("${spring.data.kafka.topic-name.posts}") String postTopic,
+                               @Value("${spring.data.kafka.topic-name.likes}") String likesTopic,
+                               @Value("${spring.data.kafka.topic-name.comments}") String commentsTopic,
+                               @Value("${spring.data.kafka.topic-name.views}") String viewsTopic) {
+
         this.bootstrapAddress = bootstrapAddress;
+        this.postTopic = postTopic;
+        this.likeTopic = likesTopic;
+        this.commentTopic = commentsTopic;
+        this.viewsTopic = viewsTopic;
     }
-
-    @Value("${spring.data.kafka.topic-name.posts}")
-    private String postTopic;
-
-    @Value("${spring.data.kafka.topic-name.likes}")
-    private String likeTopic;
-
-    @Value("${spring.data.kafka.topic-name.comments}")
-    private String commentTopic;
-
-    @Value("${spring.data.kafka.topic-name.views}")
-    private String viewsTopic;
 
     @Bean
     public ProducerFactory<String, Object> producerFactory() {
