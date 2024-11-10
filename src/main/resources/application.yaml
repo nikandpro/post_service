@@ -21,9 +21,20 @@ spring:
     redis:
       port: 6379
       host: localhost
+      post-cache:
+        key-pref: "post:"
+        likes: likes
+        views: views
       channels:
-        calculations_channel:
-          name: calculations_channel
+         like_post_channel: like_channel
+         comment_channel: comment_channel
+    kafka:
+      bootstrap: localhost:9092
+      topic-name:
+        posts: posts
+        likes: likes
+        comments: comments
+        views: views
 
 server:
   port: 8081
@@ -33,9 +44,6 @@ logging:
     root: info
 
 post:
-  publisher:
-    scheduler:
-      cron: "0 0/1 * 1/1 * ?" # every minute
   ad-remover:
     scheduler:
       cron: "0 0/1 * 1/1 * ?" # every minute
@@ -49,3 +57,9 @@ project-service:
 payment-service:
   host: localhost
   port: 9080
+
+sizeof-sublist: 100
+
+
+like-service:
+  batch-size: 100

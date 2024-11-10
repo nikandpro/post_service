@@ -1,33 +1,37 @@
 package faang.school.postservice.dto.post;
 
-import faang.school.postservice.validator.AuthorOrProjectIdOnly;
+import faang.school.postservice.dto.comment.CommentEventDto;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@AuthorOrProjectIdOnly
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PostDto {
-    private Long id;
-    private Long authorId;
-    private Long projectId;
-
-    @NotBlank(message = "content must be not blank")
-    @NotNull(message = "content must be not null")
-    @Size(max = 1000, message = "content must be shorter than 1000 characters")
+    private long id;
+    @NotBlank
     private String content;
-
-    private Boolean deleted;
-    private LocalDateTime createdAt;
+    @Min(value = 0)
+    @NotNull
+    private Long authorId;
+    @Min(value = 0)
+    @NotNull
+    private Long projectId;
+    boolean published;
+    private Integer likes;
+    private Integer views;
+    private List<CommentEventDto> comments;
     private LocalDateTime publishedAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
     private LocalDateTime scheduledAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
